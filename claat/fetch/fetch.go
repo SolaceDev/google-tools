@@ -132,16 +132,10 @@ func NewFetcher(at string, pm map[string]bool, rt http.RoundTripper) (*Fetcher, 
 // The function will also fetch and parse fragments included
 // with nodes.ImportNode.
 func (f *Fetcher) SlurpCodelab(src string, output string) (*codelab, error) {
-	_, err := os.Stat(src)
-	_, err_out := os.Stat(output)
+	// _, err := os.Stat(src)
+	_, err := os.Stat(output)
 	// Only setup oauth if this source is not a local file.
 	if os.IsNotExist(err) {
-		fmt.Println("YOLO NOT LOCAL FILE")
-		fmt.Printf("os.IsNotExist(err): %t\n", os.IsNotExist(err))
-		fmt.Printf("Output %s\n", output)
-		fmt.Printf("os.Stat(src) %s\n", err)
-		fmt.Printf("err_out %s\n", err_out)
-		fmt.Printf("os.IsNotExist(err): %t\n", os.IsNotExist(err_out))
 		if f.authHelper == nil {
 			f.authHelper, err = auth.NewHelper(f.authToken, auth.ProviderGoogle, f.roundTripper)
 			if err != nil {
